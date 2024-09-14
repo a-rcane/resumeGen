@@ -6,8 +6,6 @@ import openai
 
 app = FastAPI()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")  # Use environment variables in Vercel
-
 
 def extract_text_from_pdf(pdf_file):
     reader = PyPDF2.PdfReader(pdf_file)
@@ -17,7 +15,9 @@ def extract_text_from_pdf(pdf_file):
     return extracted_text
 
 
-def generate_resume_html(pdf_text):
+def generate_resume_html(pdf_text, api_key):
+    openai.api_key = api_key
+
     system_prompt = (
         "You are an expert resume generator. Given a LinkedIn resume text, extract details like "
         "Name, Summary, Experience, Education, Skills, and Contact Information. Then, convert "
@@ -30,7 +30,7 @@ def generate_resume_html(pdf_text):
     )
 
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}

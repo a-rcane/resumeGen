@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Generator</title>
+    <link rel="stylesheet" href="./static/style.css" />
 </head>
 <body>
     <h2>Upload Your LinkedIn Resume PDF</h2>
     <form id="resumeForm" enctype="multipart/form-data">
-        <input type="file" id="fileInput" name="file" accept="application/pdf">
+        <input type="text" id="apiKeyInput" name="apiKey" placeholder="Enter OpenAI API Key" required>
         <br><br>
+
+        <input type="file" id="fileInput" name="file" accept="application/pdf" required>
+        <br><br>
+
         <button type="submit">Generate HTML Resume</button>
     </form>
     <div id="resumeOutput"></div>
@@ -17,8 +22,11 @@
     <script>
         document.getElementById('resumeForm').addEventListener('submit', async function (event) {
             event.preventDefault();
+
+            const apiKey = document.getElementById('apiKeyInput').value;
             const fileInput = document.getElementById('fileInput');
             const formData = new FormData();
+            formData.append('apiKey', apiKey);
             formData.append('file', fileInput.files[0]);
 
             const response = await fetch('/api/upload', {
