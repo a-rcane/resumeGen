@@ -3,9 +3,9 @@
 
 ## Instructions
 
-Link to project: [project deployed on vercel]()
+Link to project: [project deployed on vercel](https://resume-ltjfkxwzb-a-rcanes-projects.vercel.app/)
 
-Github link: [Here]()
+Github link: [Here](https://github.com/a-rcane/resumeGen)
 
 Used fastApi with basic HTML, CSS and JS
 
